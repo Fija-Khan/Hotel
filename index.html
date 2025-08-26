@@ -1,0 +1,1059 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hotel Website</title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/responsive.css">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
+
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+  <!-- Swiper -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+  <!-- Minimal helper styles so the slider looks right -->
+  <style>
+    body {
+      scroll-behavior: smooth;
+    }
+
+    .header_wrapper .navbar {
+      background: #fff;
+    }
+
+    .navbar-brand span {
+      color: #6c580f;
+    }
+
+
+
+    /* Navbar wrapper */
+    .header_wrapper .navbar {
+      height: 70px;
+      background: #fff;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+    }
+
+    /* Brand */
+    .header_wrapper .navbar-brand {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #6c580f;
+    }
+
+    .header_wrapper .navbar-brand span {
+      color: #000;
+    }
+
+    /* Nav links */
+    .header_wrapper .navbar-nav .nav-link {
+      font-size: 1.1rem;
+      font-weight: 500;
+      color: #333;
+      padding: 0.6rem 1rem;
+      border-radius: 6px;
+      transition: all 0.3s ease;
+    }
+
+    /* Active link */
+    .header_wrapper .navbar-nav .nav-link.active {
+      color: #6c580f;
+    }
+
+    /* Hover effect */
+    .header_wrapper .navbar-nav .nav-link:hover {
+      background-color: #6c580f;
+      color: #fff !important;
+    }
+
+    /* Book Now button */
+    .main-btn {
+      background: #6c580f;
+      color: #fff !important;
+      font-weight: 600;
+      padding: 0.6rem 1.2rem;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: 0.3s;
+      display: inline-block;
+      margin-right: 20px;
+      /* ✅ space from right side */
+    }
+
+    .main-btn:hover {
+      background: #4a3c0a;
+      /* ✅ hover darker */
+      color: #fff !important;
+      transform: scale(1.05);
+      /* little grow effect */
+    }
+
+    /* Mobile toggle button */
+    .navbar-toggler {
+      border: none;
+      font-size: 1.5rem;
+      color: #6c580f;
+    }
+
+
+    /* Hero / Swiper */
+    .banner_wrapper {
+      position: relative;
+    }
+
+    .banner_wrapper .swiper {
+      width: 100%;
+      height: 80vh;
+    }
+
+    .swiper-slide {
+      background-position: center;
+      background-size: cover;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .slide-caption {
+      background: rgba(0, 0, 0, 0.35);
+      padding: 1.5rem 2rem;
+      border-radius: 1rem;
+      color: #fff;
+      max-width: 90%;
+    }
+
+    .slide-caption h1 {
+      margin: 0 0 .5rem;
+      font-weight: 700;
+    }
+
+    /* Booking area */
+    .booking-area {
+      margin-top: -40px;
+      position: relative;
+      z-index: 5;
+    }
+
+    .booking-area .card {
+      border-radius: 1rem;
+    }
+
+    .main-btn {
+      display: inline-block;
+      padding: .6rem 1rem;
+      border-radius: .5rem;
+      background: #6c580f;
+      color: #fff;
+      text-decoration: none;
+      border: none;
+    }
+
+    .main-btn:hover {
+      opacity: .9;
+      color: #fff;
+    }
+
+    .btn2 {
+      display: inline-block;
+      padding: 9px 9px;
+      background-color: #6c580f;
+      color: #fff;
+      font-weight: 600;
+      border: none;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .room-img {
+      height: 250px;
+      object-fit: cover;
+    }
+
+    .price {
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem;
+    }
+
+
+    /* Service Images (large) */
+    .service-img {
+      width: 100%;
+      max-height: 400px;
+      /* Limit height but keep aspect ratio */
+      object-fit: cover;
+      /* Crop nicely instead of stretching */
+      border-radius: 12px;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    /* Service Icons (small preview images) */
+    .service-icon {
+      width: 60px;
+      height: 60px;
+      object-fit: cover;
+      border-radius: 8px;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Service Menu Style */
+    .service-menu .nav-link {
+      padding: 12px;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+      background: #fff;
+    }
+
+
+    /* Make nav links always black, no bootstrap blue */
+    .service-menu .nav-link {
+      color: #000 !important;
+      /* Always black */
+      background-color: transparent;
+      /* No background */
+      border: none !important;
+    }
+
+    .counter {
+      background-image: url(images/hotel-blurred.jpg);
+      background-position: center center;
+      background-repeat: no-repeat;
+      background-size: cover;
+      padding: 3.125rem;
+      position: relative;
+
+    }
+
+    .counter::before {
+      position: absolute;
+      top: 0;
+      left: 0;
+      content: '';
+      width: 100%;
+      height: 100%;
+      background-color: var(--bg-black);
+      opacity: 0.5;
+      z-index: 1;
+    }
+
+    .counter h1,
+    .counter p {
+      position: relative;
+      z-index: 3;
+      color: white;
+    }
+
+    .counter h1 {
+      top: 0;
+    }
+
+    .counter p {
+      top: 10%;
+    }
+.team_wrapper .card {
+  position: relative;
+  overflow: hidden;
+}
+
+.team_wrapper .card img {
+  width: 100%;
+  height: 500px;          /* Adjust as needed */
+  object-fit: cover;      /* Prevents image distortion */
+  display: block;
+}
+
+.team_wrapper .team-info {
+  background-color: #6c580f;
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  text-align: center;
+  padding: 1.25rem;
+  margin-bottom: -4.6875rem;   /* Hidden by default */
+  transition: all 0.3s ease-in-out;
+}
+
+.team_wrapper .card:hover .team-info {
+  margin-bottom: 0;          /* Slide up on hover */
+}
+
+.team_wrapper .team-info h5,
+.team_wrapper .team-info p {
+  color: white;
+  margin: 0.5rem 0;          /* Adds spacing */
+}
+
+.team_wrapper .team-info .social-network {
+  padding: 1.25rem;
+  margin: 1.25rem -1.25rem -1.25rem;
+  background-color: var(--primary-color);
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;   /* Center icons */
+  gap: 0.75rem;              /* Space between icons */
+  transition: all 0.3s ease-in-out;
+}
+
+.team_wrapper .team-info .social-network li {
+  list-style: none;          /* Remove default bullets */
+}
+
+.team_wrapper .team-info .social-network li i {
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-size: 0.9375rem;
+  color: white;
+  border: 1px solid white;
+  text-decoration: none;     /* Remove underline */
+  transition: all 0.3s ease-in-out;
+}
+
+
+.gallery-img {
+  width: 100%;
+  aspect-ratio: 1/1; /* square ratio */
+  overflow: hidden;
+  border-radius: 8px;
+}
+
+.gallery-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* ensures same size */
+  display: block;
+}
+.blog_wrapper .btn{
+  background-color: #6c580f;
+  color: white;
+}
+
+
+  </style>
+</head>
+
+<body data-bs-spy="scroll" data-bs-target=".navbar" data-bs-offset="100">
+
+  <!-- Navbar -->
+  <header class="header_wrapper">
+    <nav class="navbar navbar-expand-lg sticky-top">
+      <div class="container">
+        <!-- Brand -->
+        <a class="navbar-brand fw-bold" href="#home">Hot<span>els</span></a>
+
+        <!-- Mobile toggle -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+          aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <i class="fa-solid fa-bars-staggered"></i>
+        </button>
+
+        <!-- Links -->
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+          <ul class="navbar-nav menu-navbar-nav">
+            <li class="nav-item"><a class="nav-link active" href="#home">Home</a></li>
+            <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+            <li class="nav-item"><a class="nav-link" href="#rooms">Rooms</a></li>
+            <li class="nav-item"><a class="nav-link" href="#services">Services</a></li>
+            <li class="nav-item"><a class="nav-link" href="#team">Team</a></li>
+            <li class="nav-item"><a class="nav-link" href="#gallery">Gallery</a></li>
+            <li class="nav-item"><a class="nav-link" href="#price">Price</a></li>
+            <li class="nav-item"><a class="nav-link" href="#blog">Blog</a></li>
+            <li class="nav-item mt-3 mt-lg-0">
+              <a class="main-btn" href="#booking">Book Now</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Hero / Swiper -->
+  <section id="home" class="banner_wrapper p-0">
+    <div class="swiper mySwiper">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide" style="background-image:url('images/banner.jpg')">
+          <div class="slide-caption text-center">
+            <h1>Welcome to Hotel Paradise</h1>
+            <p class="mb-0">Luxury • Comfort • Elegance</p>
+          </div>
+        </div>
+
+        <div class="swiper-slide" style="background-image:url('images/banner2.jpg')">
+          <div class="slide-caption text-center">
+            <h1>Welcome to Hotel Paradise</h1>
+            <p class="mb-0">Luxury • Comfort • Elegance</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Optional: pagination & arrows -->
+      <div class="swiper-pagination"></div>
+      <div class="swiper-button-prev d-none d-md-flex"></div>
+      <div class="swiper-button-next d-none d-md-flex"></div>
+    </div>
+  </section>
+
+  <!-- Booking -->
+  <section id="booking" class="container booking-area">
+    <div class="card shadow p-3 p-lg-4">
+      <form class="row g-3 align-items-end" action="#" method="get">
+        <div class="col-12 col-md-6 col-lg">
+          <label class="form-label">Check-in</label>
+          <input type="date" class="form-control" name="checkin" required>
+        </div>
+        <div class="col-12 col-md-6 col-lg">
+          <label class="form-label">Check-out</label>
+          <input type="date" class="form-control" name="checkout" required>
+        </div>
+        <div class="col-6 col-md-4 col-lg">
+          <label class="form-label">Adults</label>
+          <select class="form-select" name="adults" required>
+            <option value="" selected disabled>Select</option>
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+            <option>6</option>
+          </select>
+        </div>
+        <div class="col-6 col-md-4 col-lg">
+          <label class="form-label">Children</label>
+          <select class="form-select" name="children">
+            <option value="" selected>0</option>
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+            <option>6</option>
+          </select>
+        </div>
+        <div class="col-12 col-md-4 col-lg-auto">
+          <button type="submit" class="main-btn rounded-2 px-lg-3 w-100">
+            Check Availability
+          </button>
+        </div>
+      </form>
+    </div>
+  </section> <br> <br>
+
+
+
+  <section class="py-5 bg-light" id="about">
+    <div class="container">
+      <div class="row align-items-center">
+
+        <!-- Left: Restaurant Description -->
+        <div class="col-md-6">
+          <h2 class="mb-3">Welcome to Hotel</h2>
+          <p>
+            Discover a haven of comfort, elegance, and unparalleled hospitality at Hotel.
+            Nestled in the heart of India, our hotel offers the perfect blend of modern luxury
+            and timeless charm, ensuring an unforgettable stay for every guest.
+          </p>
+          <p>
+            Your perfect getaway awaits. Reserve your room now and let us take care of the rest.
+            We look forward to welcoming you to hotel.
+          </p>
+          <br>
+          <a href="#" class="btn2 mt-4">View Gallery</a>
+        </div>
+
+        <!-- Right: Restaurant Image -->
+        <div class="col-md-6 mt-4 mt-md-0">
+          <img src="images/about.jpg" class="img-fluid rounded shadow" alt="Our Restaurant">
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- Rooms Section -->
+  <section id="rooms" class="py-5 bg-light">
+    <div class="container">
+
+      <!-- Section Heading -->
+      <div class="text-center mb-5">
+        <h2 class="fw-bold">Our Rooms</h2>
+        <p class="text-muted">
+          Experience comfort and luxury in our beautifully designed rooms.
+          Whether you’re traveling for business or leisure, we have the perfect room for you.
+        </p>
+      </div>
+
+      <!-- Room Cards -->
+      <div class="row g-4">
+
+        <!-- Room 1 -->
+        <div class="col-md-6 col-lg-4">
+          <div class="card h-100 shadow-sm">
+            <img src="images/room1.jpg" class="card-img-top room-img" alt="Deluxe Room">
+            <div class="card-body text-center">
+              <h5 class="card-title">Deluxe Room</h5>
+              <p class="price fw-bold">₹4,999 / Night</p>
+              <p class="card-text">A spacious room with modern amenities, ideal for a relaxing stay.</p>
+              <a href="#booking" class="btn2">Book Now</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Room 2 -->
+        <div class="col-md-6 col-lg-4">
+          <div class="card h-100 shadow-sm">
+            <img src="images/room2.jpg" class="card-img-top room-img" alt="Royal Suite">
+            <div class="card-body text-center">
+              <h5 class="card-title">Royal Suite</h5>
+              <p class="price fw-bold">₹6,999 / Night</p>
+              <p class="card-text">Enjoy extra space, elegant decor, and premium services in our suites.</p>
+              <a href="#booking" class="btn2">Book Now</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Room 3 -->
+        <div class="col-md-6 col-lg-4">
+          <div class="card h-100 shadow-sm">
+            <img src="images/room3.jpg" class="card-img-top room-img" alt="Family Room">
+            <div class="card-body text-center">
+              <h5 class="card-title">Family Room</h5>
+              <p class="price fw-bold">₹5,499 / Night</p>
+              <p class="card-text">Perfect for families, offering comfort and space for everyone.</p>
+              <a href="#booking" class="btn2">Book Now</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Services Section -->
+  <section id="services" class="py-5 bg-light">
+    <div class="container">
+      <!-- Title -->
+      <div class="row">
+        <div class="col text-center mb-5">
+          <h2 class="fw-bold">Our Services</h2>
+          <p class="text-muted">We provide world-class facilities to make your stay comfortable, relaxing, and
+            unforgettable.</p>
+        </div>
+      </div>
+
+      <div class="row align-items-center">
+        <!-- Left Side: Service Images -->
+        <div class="col-lg-7">
+          <div class="tab-content" id="serviceTabContent">
+            <div class="tab-pane fade show active" id="spa" role="tabpanel">
+              <img src="images/spa1.jpg" class="img-fluid service-img" alt="Spa">
+            </div>
+            <div class="tab-pane fade" id="restaurant" role="tabpanel">
+              <img src="images/dining.jpg" class="img-fluid service-img" alt="Restaurant">
+            </div>
+            <div class="tab-pane fade" id="swimming" role="tabpanel">
+              <img src="images/swimming.jpg" class="img-fluid service-img" alt="Swimming Pool">
+            </div>
+            <div class="tab-pane fade" id="conference" role="tabpanel">
+              <img src="images/conference.jpg" class="img-fluid service-img" alt="Conference Hall">
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Side: Service Menu -->
+        <div class="col-lg-5">
+          <ul class="nav flex-column service-menu">
+            <li class="nav-item mb-3">
+              <a class="nav-link active d-flex align-items-start" data-bs-toggle="tab" href="#spa">
+                <img src="images/spa1.jpg" class="service-icon me-3" alt="Spa">
+                <div>
+                  <h5 class="mb-1">Spa & Wellness</h5>
+                  <p class="mb-0 small">Relax and rejuvenate with our premium spa, health, and beauty treatments.</p>
+                </div>
+              </a>
+            </li>
+            <li class="nav-item mb-3">
+              <a class="nav-link d-flex align-items-start" data-bs-toggle="tab" href="#restaurant">
+                <img src="images/dining.jpg" class="service-icon me-3" alt="Restaurant">
+                <div>
+                  <h5 class="mb-1">Fine Dining</h5>
+                  <p class="mb-0 small">Enjoy delicious cuisines prepared by our world-class chefs.</p>
+                </div>
+              </a>
+            </li>
+            <li class="nav-item mb-3">
+              <a class="nav-link d-flex align-items-start" data-bs-toggle="tab" href="#swimming">
+                <img src="images/swimming.jpg" class="service-icon me-3" alt="Swimming Pool">
+                <div>
+                  <h5 class="mb-1">Swimming Pool</h5>
+                  <p class="mb-0 small">Dive into our luxurious pool and enjoy a refreshing experience.</p>
+                </div>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link d-flex align-items-start" data-bs-toggle="tab" href="#conference">
+                <img src="images/conference.jpg" class="service-icon me-3" alt="Conference Hall">
+                <div>
+                  <h5 class="mb-1">Conference Hall</h5>
+                  <p class="mb-0 small">Host meetings, events, and seminars in our fully equipped halls.</p>
+                </div>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="counter mt-5">
+      <div class="container">
+        <div class="row text-center">
+          <div class="col-md-3 mb-lg-0 mb-md-0 mb-5">
+            <h1>
+              <span id="count1"></span>+
+            </h1>
+            <p>Happy client</p>
+
+          </div>
+          <div class="col-md-3 mb-lg-0 mb-md-0 mb-5">
+            <h1>
+              <span id="count2"></span>+
+            </h1>
+            <p>New Friendship</p>
+
+          </div>
+          <div class="col-md-3 mb-lg-0 mb-md-0 mb-5">
+            <h1>
+              <span id="count3"></span>+
+            </h1>
+            <p>Five star Rating</p>
+
+          </div>
+          <div class="col-md-3 mb-lg-0 mb-md-0 mb-5">
+            <h1>
+              <span id="count4"></span>+
+            </h1>
+            <p>Served Breakfast</p>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Team section -->
+
+  <section id="team" class="team_wrapper mt-5">
+    <div class="container">
+      <div class="row">
+        <div class="col -sm-12 section-title text-center mb-5">
+          <h6>What I Can Do For You</h6>
+          <h3>Our Speacial Staff</h3>
+
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-lg-3 col-md-6 mb-4">
+          <div class="card p-0 rounded-3">
+            <img src="images/Kavita-team1.jpg" class="img-fluid-rounded-3">
+            <div class="team-info">
+              <h5>Kavita Rao</h5>
+              <p>Hotel Manager</p>
+              <ul class="social-network">
+                <li><i class="fa-brands fa-facebook"></i></li>
+                <li><i class="fa-brands fa-twitter"></i></li>
+                <li><i class="fa-brands fa-instagram"></i></li>
+                <li><i class="fa-brands fa-google-plus-g"></i></li>
+              </ul>
+            </div>
+          </div>
+
+        </div>
+        <div class="col-lg-3 col-md-6 mb-4">
+          <div class="card p-0 rounded-3">
+            <img src="images/manager.jpg" class="img-fluid-rounded-3">
+            <div class="team-info">
+              <h5>Rajesh Sharma</h5>
+              <p>General Manager</p>
+              <ul class="social-network">
+                <li><i class="fa-brands fa-facebook"></i></li>
+                <li><i class="fa-brands fa-twitter"></i></li>
+                <li><i class="fa-brands fa-instagram"></i></li>
+                <li><i class="fa-brands fa-google-plus-g"></i></li>
+              </ul>
+            </div>
+          </div>
+
+        </div>
+        <div class="col-lg-3 col-md-6 mb-4">
+          <div class="card p-0 rounded-3">
+            <img src="images/front-desk.jpg" class="img-fluid-rounded-3">
+            <div class="team-info">
+              <h5>Priya Nair</h5>
+              <p>Front Office Manager</p>
+              <ul class="social-network">
+                <li><i class="fa-brands fa-facebook"></i></li>
+                <li><i class="fa-brands fa-twitter"></i></li>
+                <li><i class="fa-brands fa-instagram"></i></li>
+                <li><i class="fa-brands fa-google-plus-g"></i></li>
+              </ul>
+            </div>
+          </div>
+
+        </div>
+        <div class="col-lg-3 col-md-6 mb-4">
+          <div class="card p-0 rounded-3">
+            <img src="images/chef.jpg" class="img-fluid-rounded-3">
+            <div class="team-info">
+              <h5>Arjun Mehta</h5>
+              <p>Executive Chef</p>
+              <ul class="social-network">
+                <li><i class="fa-brands fa-facebook"></i></li>
+                <li><i class="fa-brands fa-twitter"></i></li>
+                <li><i class="fa-brands fa-instagram"></i></li>
+                <li><i class="fa-brands fa-google-plus-g"></i></li>
+              </ul>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+<!-- Gallery Section -->
+<section id="gallery" class="gallery-wrapper py-5">
+  <div class="container">
+    <!-- Section Title -->
+    <div class="row">
+      <div class="col-12 text-center mb-5">
+        <h6 class="text-muted">Best Pictures of our Hotel</h6>
+        <h3 class="fw-bold">Our Gallery</h3>
+      </div>
+    </div>
+
+    <!-- Gallery Grid -->
+    <div class="row g-3">
+      <div class="col-lg-3 col-md-4 col-sm-6">
+        <div class="gallery-img">
+          <img src="images/gallery-1.jpg" alt="Gallery 1">
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-4 col-sm-6">
+        <div class="gallery-img">
+          <img src="images/gallery-2.jpg" alt="Gallery 2">
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-4 col-sm-6">
+        <div class="gallery-img">
+          <img src="images/gallery-3.jpg" alt="Gallery 3">
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-4 col-sm-6">
+        <div class="gallery-img">
+          <img src="images/gallery-4.jpg" alt="Gallery 4">
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-4 col-sm-6">
+        <div class="gallery-img">
+          <img src="images/gallery-5.jpg" alt="Gallery 5">
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-4 col-sm-6">
+        <div class="gallery-img">
+          <img src="images/gallery-6.jpg" alt="Gallery 6">
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-4 col-sm-6">
+        <div class="gallery-img">
+          <img src="images/gallery-7.jpg" alt="Gallery 7">
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-4 col-sm-6">
+        <div class="gallery-img">
+          <img src="images/gallery-8.jpg" alt="Gallery 8">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Price section -->
+<section id="price" class="price_wrapper py-5">
+  <div class="container">
+    <!-- Title -->
+    <div class="row">
+      <div class="col sm-12 section-title text-center mb-5">
+        <h6>Best & Affordable Price For You</h6>
+        <h3>Our Pricing</h3>
+      </div>
+    </div>
+
+    <div class="row">
+      <!-- Economic Plan -->
+      <div class="col-lg-3 col-md-6 mb-4">
+        <div class="card p-4 text-center rounded-3 shadow-sm">
+          <h5 class="text-decoration-underline mb-4">Economic</h5>
+          <ul class="list-unstyled">
+            <li><p>Flight Ticket (2)</p></li>
+            <li><p>Music Concert (30% off)</p></li>
+            <li><p>Restaurant (Snacks)</p></li>
+            <li><p>Face Make (no)</p></li>
+          </ul>
+          <hr/>
+          <h3>$150 <sub class="fs-6 fw-normal">NIGHT</sub></h3>
+          <a href="#" class="main-btn btn btn-dark mt-3">Sign Up</a>
+        </div>
+      </div>
+
+      <!-- Standard Plan -->
+      <div class="col-lg-3 col-md-6 mb-4">
+        <div class="card p-4 text-center rounded-3 shadow-sm">
+          <h5 class="text-decoration-underline mb-4">Standard</h5>
+          <ul class="list-unstyled">
+            <li><p>Flight Ticket (4)</p></li>
+            <li><p>Music Concert (Free Pass)</p></li>
+            <li><p>Restaurant (Dinner)</p></li>
+            <li><p>Face Make (Basic)</p></li>
+          </ul>
+          <hr/>
+          <h3>$250 <sub class="fs-6 fw-normal">NIGHT</sub></h3>
+          <a href="#" class="main-btn btn btn-dark mt-3">Sign Up</a>
+        </div>
+      </div>
+
+      <!-- Premium Plan -->
+      <div class="col-lg-3 col-md-6 mb-4">
+        <div class="card p-4 text-center rounded-3 shadow-sm">
+          <h5 class="text-decoration-underline mb-4">Premium</h5>
+          <ul class="list-unstyled">
+            <li><p>Flight Ticket (6)</p></li>
+            <li><p>Music Concert (VIP Pass)</p></li>
+            <li><p>Restaurant (Full Course)</p></li>
+            <li><p>Face Make (Premium)</p></li>
+          </ul>
+          <hr/>
+          <h3>$400 <sub class="fs-6 fw-normal">NIGHT</sub></h3>
+          <a href="#" class="main-btn btn btn-dark mt-3">Sign Up</a>
+        </div>
+      </div>
+
+      <!-- Luxury Plan -->
+      <div class="col-lg-3 col-md-6 mb-4">
+        <div class="card p-4 text-center rounded-3 shadow-sm">
+          <h5 class="text-decoration-underline mb-4">Luxury</h5>
+          <ul class="list-unstyled">
+            <li><p>Flight Ticket (10)</p></li>
+            <li><p>Music Concert (All Access)</p></li>
+            <li><p>Restaurant (Unlimited)</p></li>
+            <li><p>Face Make (Luxury Spa)</p></li>
+          </ul>
+          <hr/>
+          <h3>$650 <sub class="fs-6 fw-normal">NIGHT</sub></h3>
+          <a href="#" class="main-btn btn btn-dark mt-3">Sign Up</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Blog Section -->
+<section id="blog" class="blog_wrapper py-5 bg-light">
+  <div class="container">
+    <!-- Section Title -->
+    <div class="row">
+      <div class="col-12 text-center mb-5">
+        <h6>Latest News & Articles</h6>
+        <h3>Our Blog</h3>
+      </div>
+    </div>
+
+    <div class="row">
+      <!-- Blog Post 1 -->
+      <div class="col-lg-4 col-md-6 mb-4">
+        <div class="card shadow-sm rounded-3 border-0">
+          <img src="images/blog--1.jpg" class="card-img-top rounded-top" alt="Luxury Room">
+          <div class="card-body p-4">
+            <h5 class="card-title">Top Luxury Rooms for Your Stay</h5>
+            <p class="card-text text-muted">
+              Discover our most luxurious rooms designed with comfort, elegance, and modern amenities to make your stay unforgettable.
+            </p>
+            <a href="#" class="btn btn-sm">Read More</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Blog Post 2 -->
+      <div class="col-lg-4 col-md-6 mb-4">
+        <div class="card shadow-sm rounded-3 border-0">
+          <img src="images/blog-2.jpg" class="card-img-top rounded-top" alt="Restaurant">
+          <div class="card-body p-4">
+            <h5 class="card-title">Fine Dining at Our Restaurant</h5>
+            <p class="card-text text-muted">
+              Enjoy international cuisines prepared by top chefs. Our restaurant offers a blend of taste and luxury in every meal.
+            </p>
+            <a href="#" class="btn  btn-sm">Read More</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Blog Post 3 -->
+      <div class="col-lg-4 col-md-6 mb-4">
+        <div class="card shadow-sm rounded-3 border-0">
+          <img src="images/blog-3.jpg" class="card-img-top rounded-top" alt="Beach Resort">
+          <div class="card-body p-4">
+            <h5 class="card-title">Beachside Relaxation & Activities</h5>
+            <p class="card-text text-muted">
+              Explore exciting activities near our beach resort including water sports, spa treatments, and sunset views.
+            </p>
+            <a href="#" class="btn  btn-sm">Read More</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- Footer Section -->
+<footer class="footer text-light pt-5 pb-3" style="background-color:#6c580f;">
+  <div class="container">
+    <div class="row">
+
+      <!-- About -->
+      <div class="col-lg-3 col-md-6 mb-4">
+        <h5 class="mb-3">About Our Hotel</h5>
+        <p>
+          Experience comfort and luxury at our hotel. Located in the heart of Pune, 
+          we offer premium rooms, fine dining, and world-class amenities to make 
+          your stay unforgettable.
+        </p>
+      </div>
+
+      <!-- Quick Links -->
+      <div class="col-lg-3 col-md-6 mb-4">
+        <h5 class="mb-3">Quick Links</h5>
+        <ul class="list-unstyled">
+          <li><a href="#home" class="text-light text-decoration-none">Home</a></li>
+          <li><a href="#rooms" class="text-light text-decoration-none">Rooms</a></li>
+          <li><a href="#services" class="text-light text-decoration-none">Services</a></li>
+          <li><a href="#blog" class="text-light text-decoration-none">Blog</a></li>
+          <li><a href="#contact" class="text-light text-decoration-none">Contact</a></li>
+        </ul>
+      </div>
+
+      <!-- Contact Info -->
+      <div class="col-lg-3 col-md-6 mb-4">
+        <h5 class="mb-3">Contact Us</h5>
+        <ul class="list-unstyled">
+          <li><i class="fas fa-map-marker-alt me-2"></i> Kharadi, Pune</li>
+          <li><i class="fas fa-phone me-2"></i> 
+            <a href="tel:1234567891" class="text-light text-decoration-none">1234567891</a>
+          </li>
+          <li><i class="fas fa-envelope me-2"></i> 
+            <a href="mailto:hotel@gmail.com" class="text-light text-decoration-none">hotel@gmail.com</a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Social Media -->
+      <div class="col-lg-3 col-md-6 mb-4">
+        <h5 class="mb-3">Follow Us</h5>
+        <div>
+          <a href="#" class="text-light fs-4 me-3"><i class="fab fa-facebook"></i></a>
+          <a href="#" class="text-light fs-4 me-3"><i class="fab fa-instagram"></i></a>
+          <a href="#" class="text-light fs-4 me-3"><i class="fab fa-twitter"></i></a>
+          <a href="#" class="text-light fs-4"><i class="fab fa-tripadvisor"></i></a>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Bottom -->
+    <div class="row mt-4">
+      <div class="col text-center">
+        <p class="mb-0">© 2025 Hotel Paradise. All Rights Reserved.</p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+<!-- FontAwesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+
+<!-- FontAwesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+
+
+
+
+
+  <!-- JS: Popper + Bootstrap -->
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"></script>
+
+  <!-- Swiper -->
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+  <!-- Your JS (optional) -->
+  <script src="js/main.js"></script>
+
+  <!-- Swiper init (works even if main.js is empty) -->
+  <script>
+    const swiper = new Swiper('.mySwiper', {
+      loop: true,
+      autoplay: { delay: 3000, disableOnInteraction: false },
+      pagination: { el: '.swiper-pagination', clickable: true },
+      navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
+      effect: 'fade',
+      fadeEffect: { crossFade: true }
+    });
+
+    // counter
+
+    document.addEventListener("DOMContentLoaded", () => {
+      function counter(id, start, end, duration) {
+
+        let obj = document.getElementById(id),
+          current = start,
+          range = end - start,
+          increment = end > start ? 1 : -1,
+          step = Math.abs(Math.floor(duration / range)),
+          timer = setInterval(() => {
+            current += increment;
+            obj.textContent = current;
+            if (current == end) {
+              clearInterval(timer);
+
+            }
+
+
+          }, step)
+
+
+      }
+      counter("count1", 0, 1287, 3000);
+      counter("count2", 100, 5287, 2000);
+      counter("count3", 0, 1487, 3000);
+      counter("count4", 0, 3234, 3000);
+
+
+    });
+  </script>
+</body>
+
+</html>
